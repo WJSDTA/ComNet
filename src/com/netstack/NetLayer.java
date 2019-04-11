@@ -21,7 +21,6 @@ public class NetLayer implements Runnable{
     private LinkedBlockingDeque<Message> cache;
     public NetLayer() {
     }
-
     public NetLayer(BlockingQueue<Message> queue) {
         this.queue = queue;
     }

@@ -25,7 +25,6 @@ public class NetWorkDemo {
         netLayer.setName("NetLayer");
         transportLayer.setName("TransportLayer");
         applicationLayer.setName("ApplicationLayer");
-
         new Thread(phyLayer).start();
         new Thread(macLayer).start();
         new Thread(netLayer).start();

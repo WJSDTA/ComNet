@@ -55,7 +55,6 @@ public class PhyLayer implements Runnable {
     @Override
     public void run() {
 
-
         while (true){
 
             synchronized (queue){
