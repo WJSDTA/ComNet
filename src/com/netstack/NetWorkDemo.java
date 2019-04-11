@@ -23,7 +23,6 @@ public class NetWorkDemo {
         phyLayer.setName("PhyLayer");
         macLayer.setName("MacLayer");
         netLayer.setName("NetLayer");
-
         transportLayer.setName("TransportLayer");
         applicationLayer.setName("ApplicationLayer");
 
