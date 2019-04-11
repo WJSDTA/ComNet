@@ -21,6 +21,7 @@ public class ApplicationLayer implements Runnable{
     public Message s;
     public String from;
     public Message ss = new Message();
+
     Message s1;
     public ApplicationLayer() {
     }
