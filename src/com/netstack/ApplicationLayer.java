@@ -54,6 +54,14 @@ public class ApplicationLayer implements Runnable{
         this.queue = queue;
     }
 
+    public LinkedBlockingDeque<String> getCache() {
+        return cache;
+    }
+
+    public void setCache(LinkedBlockingDeque<String> cache) {
+        this.cache = cache;
+    }
+
     @Override
     public void run() {
         while (true){
@@ -95,16 +103,9 @@ public class ApplicationLayer implements Runnable{
                                 ss = message;
                             }
 
-
-
                     }
-
                 }
-
-
             }
-
-
         }
     }
 }

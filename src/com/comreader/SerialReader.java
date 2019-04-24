@@ -40,7 +40,6 @@ public class SerialReader extends Observable implements Runnable,SerialPortEvent
     public static final String PARAMS_STOPBITS = "stop bits"; // 停止位
     public static final String PARAMS_PARITY = "parity"; // 奇偶校验
     public static final String PARAMS_RATE = "rate"; // 波特率
-
     public boolean isOpen(){
         return isOpen;
     }
@@ -53,12 +52,11 @@ public class SerialReader extends Observable implements Runnable,SerialPortEvent
     public SerialReader()
     {
         isOpen = false;
-    }
-
-    public void open(HashMap params)
+    }//构造函数
+    public void open(HashMap params) //打开方法
     {
-        serialParams = params;
-        if(isOpen){
+        serialParams = params; //设置参数
+        if(isOpen){      //已经打开则关闭
             close();
         }
         try
@@ -111,8 +109,6 @@ public class SerialReader extends Observable implements Runnable,SerialPortEvent
         Thread readThread = new Thread( this );
         readThread.start();
     }
-
-
     public void run()
     {
         try
@@ -134,7 +130,6 @@ public class SerialReader extends Observable implements Runnable,SerialPortEvent
         }
         catch (Exception e) {  }
     }  //start() end
-
 
     public void run(String message) {
         try {
@@ -250,8 +245,8 @@ public class SerialReader extends Observable implements Runnable,SerialPortEvent
         params.put( SerialReader.PARAMS_DATABITS,dataBit  ); // 数据位
         params.put( SerialReader.PARAMS_STOPBITS, stopBit ); // 停止位
         params.put( SerialReader.PARAMS_PARITY, parityInt ); // 无奇偶校验
-        params.put( SerialReader.PARAMS_TIMEOUT, 100 ); // 设备超时时间 1秒
-        params.put( SerialReader.PARAMS_DELAY, 100 ); // 端口数据准备时间 1秒
+        params.put( SerialReader.PARAMS_TIMEOUT, 10 ); // 设备超时时间 1秒
+        params.put( SerialReader.PARAMS_DELAY, 5 ); // 端口数据准备时间 1秒
         try {
             open(params);//打开串口
             //LoginFrame cf=new LoginFrame();

@@ -64,8 +64,8 @@ public class ComWR implements Observer{
         params.put( SerialReader.PARAMS_DATABITS,dataBit  ); // 数据位
         params.put( SerialReader.PARAMS_STOPBITS, stopBit ); // 停止位
         params.put( SerialReader.PARAMS_PARITY, parityInt ); // 无奇偶校验
-        params.put( SerialReader.PARAMS_TIMEOUT,100 ); // 设备超时时间 1秒
-        params.put( SerialReader.PARAMS_DELAY, 100 ); // 端口数据准备时间 1秒
+        params.put( SerialReader.PARAMS_TIMEOUT,10 ); // 设备超时时间 1秒
+        params.put( SerialReader.PARAMS_DELAY, 1 ); // 端口数据准备时间 1秒
         try {
             sr.open(params);
             sr.addObserver(this);
