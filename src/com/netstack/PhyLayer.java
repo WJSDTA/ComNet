@@ -61,17 +61,17 @@ public class PhyLayer implements Runnable {
 
                 if (!cache.isEmpty()&&cache.peek()!=null){
                     try {
-                        message = new Message("PhyLayer", "MacLayer", cache.take());
+                        message = new Message("PhyLayer", "MacLayer", cache.take());//从串口读数据
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     try {
-                        queue.put(message);
+                        queue.put(message); //放入共享队列
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-                if (!queue.isEmpty()&&queue.peek()!=null){
+                if (!queue.isEmpty()&&queue.peek()!=null){//串口发数据
                     try {
                         from =queue.peek().getTo();
                     } catch (Exception e) {

@@ -53,8 +53,8 @@ public class ComWR implements Observer{
     public void openSerialPort(String message)
     {
         HashMap<String, Comparable> params = new HashMap<String, Comparable>();
-        String port="COM1";
-        String rate = "9600";
+        String port="COM3";
+        String rate = "115200";
         String dataBit = ""+SerialPort.DATABITS_8;
         String stopBit = ""+SerialPort.STOPBITS_1;
         String parity = ""+SerialPort.PARITY_NONE;
@@ -64,11 +64,11 @@ public class ComWR implements Observer{
         params.put( SerialReader.PARAMS_DATABITS,dataBit  ); // 数据位
         params.put( SerialReader.PARAMS_STOPBITS, stopBit ); // 停止位
         params.put( SerialReader.PARAMS_PARITY, parityInt ); // 无奇偶校验
-        params.put( SerialReader.PARAMS_TIMEOUT,10 ); // 设备超时时间 1秒
-        params.put( SerialReader.PARAMS_DELAY, 1 ); // 端口数据准备时间 1秒
+        params.put( SerialReader.PARAMS_TIMEOUT,100 ); // 设备超时时间 1秒
+        params.put( SerialReader.PARAMS_DELAY, 500 ); // 端口数据准备时间 1秒
         try {
             sr.open(params);
-            sr.addObserver(this);
+            sr.addObserver(this);//添加观察者
             if(message!=null&&message.length()!=0)
             {
                 sr.start();

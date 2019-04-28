@@ -13,6 +13,7 @@ public class No {
     public static void main(String[] args) {
         Test t = new Test();
         t.send("hello");
+        t.getList();
 
     }
 

@@ -10,9 +10,11 @@ package com.comreader;
  * \
  */
 
+import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -28,20 +30,13 @@ public class Test implements Observer{
         System.out.println("---"+mt); //串口数据
     }
 
-    /**
-     * 往串口发送数据,实现双向通讯.
-     * @param string message
-     */
+
     public void send(String message)
     {
         Test test = new Test();
         test.openSerialPort(message);
     }
 
-    /**
-     * 打开串口
-     * @param String message
-     */
     public void openSerialPort(String message)
     {
         HashMap<String, Comparable> params = new HashMap<String, Comparable>();
@@ -69,7 +64,16 @@ public class Test implements Observer{
         } catch (Exception e) {
         }
     }
+    public void getList(){
+        HashSet<CommPortIdentifier> h = new HashSet<CommPortIdentifier>();
+        h =sr.getAvailableSerialPorts();
+        /*while (!h.isEmpty())
+        System.out.println(h.iterator());*/
+        for (CommPortIdentifier values : h) {
+            System.out.println(values.getName());
+        }
 
+    }
 
     public String Bytes2HexString(byte[] b) {
         String ret = "";

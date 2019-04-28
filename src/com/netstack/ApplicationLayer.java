@@ -18,6 +18,7 @@ public class ApplicationLayer implements Runnable{
     private LinkedBlockingDeque<Message> queue;
     private LinkedBlockingDeque<Message> queue1=new LinkedBlockingDeque<>();
     private LinkedBlockingDeque<String> cache=new LinkedBlockingDeque<>();
+    private LinkedBlockingDeque<String> buffer = new LinkedBlockingDeque<String>(1024);
     public Message s;
     public String from;
     public Message ss = new Message();
@@ -28,6 +29,13 @@ public class ApplicationLayer implements Runnable{
 
     public ApplicationLayer(LinkedBlockingDeque<Message> queue) {
         this.queue = queue;
+    }
+    public LinkedBlockingDeque<String> getBuffer() {
+        return buffer;
+    }
+
+    public void setBuffer(LinkedBlockingDeque<String> buffer) {
+        this.buffer = buffer;
     }
 
     public String getName() {
@@ -78,11 +86,12 @@ public class ApplicationLayer implements Runnable{
                         if(from==this.getName()){
                             try {
                                 s =   queue.take();
-                                System.out.println("I am ApplicationLayer ,my info is:"+s.getInfo());
+                                System.out.println("I am ApplicationLayer ,my info is:"+s.getInfo());//从这打印底层传来的数据
 
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
+                            /*
                             if (s.getFrom()=="TransportLayer") {
                                 message = new Message();
                                 message.setFrom("ApplicationLayer");
@@ -101,10 +110,23 @@ public class ApplicationLayer implements Runnable{
                                     }
                                 }
                                 ss = message;
-                            }
+                            }*/
 
                     }
                 }
+
+                 if(!buffer.isEmpty()&&buffer.getFirst()!=null){  //这边测试的是从主类里写数据到队列，然后发送给各个模块
+                     message = new Message();
+                     message.setFrom("ApplicationLayer");
+                     message.setTo("TransportLayer");
+                     try {
+                         message.setInfo("I am ApplicationLayer ,my info is:" + buffer.take());
+                         queue.put(message);
+                     } catch (InterruptedException e) {
+                         e.printStackTrace();
+                     }
+                 }
+
             }
         }
     }

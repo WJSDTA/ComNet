@@ -1,5 +1,6 @@
 package com.netstack;
 
+import java.util.Scanner;
 import java.util.concurrent.LinkedBlockingDeque;
 
 /**
@@ -25,10 +26,20 @@ public class NetWorkDemo {
         netLayer.setName("NetLayer");
         transportLayer.setName("TransportLayer");
         applicationLayer.setName("ApplicationLayer");
+        applicationLayer.setBuffer(cache);
         new Thread(phyLayer).start();
         new Thread(macLayer).start();
         new Thread(netLayer).start();
         new Thread(transportLayer).start();
         new Thread(applicationLayer).start();
+        while (true){
+            Scanner scanner = new Scanner(System.in);
+
+            try {
+                cache.put(scanner.nextLine());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

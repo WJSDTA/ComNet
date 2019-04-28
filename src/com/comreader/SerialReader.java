@@ -23,7 +23,9 @@ public class SerialReader extends Observable implements Runnable,SerialPortEvent
     static CommPortIdentifier portId;
     int delayRead = 100;
     int numBytes; // buffer中的实际数据字节数
-    private static byte[] readBuffer = new byte[1024]; // 4k的buffer空间,缓存串口读入的数据
+    int total_numBytes;
+    private static byte[] readBuffer = new byte[9216]; // 4k的buffer空间,缓存串口读入的数据
+    byte [] cache =  new byte[9216];
     static Enumeration portList;
     InputStream inputStream;
     OutputStream outputStream;
@@ -190,16 +192,27 @@ public class SerialReader extends Observable implements Runnable,SerialPortEvent
                 try
                 {
                     // 多次读取,将所有数据读入
+                     cache =null;
+                     total_numBytes =0;
+                     int j =0;
                     while (inputStream.available() > 0) {
                         numBytes = inputStream.read(readBuffer);
-                    }
 
+                       /* System.out.println("numBy"+numBytes);
+                        System.out.println(total_numBytes);
+                        total_numBytes =total_numBytes+numBytes;
+                        cache = addBytes(cache,readBuffer);*/
+                          j++;
+                    }
+                    System.out.println("j"+j);
                     //打印接收到的字节数据的ASCII码
                     for(int i=0;i<numBytes;i++){
                         // System.out.println("msg[" + numBytes + "]: [" +readBuffer[i] + "]:"+(char)readBuffer[i]);
                     }
+
 //                    numBytes = inputStream.read( readBuffer );
-                    changeMessage( readBuffer, numBytes );
+                     changeMessage( readBuffer, numBytes );
+                    //changeMessage(cache,total_numBytes);
                 }
                 catch ( IOException e )
                 {
@@ -207,6 +220,13 @@ public class SerialReader extends Observable implements Runnable,SerialPortEvent
                 }
                 break;
         }
+    }
+    public static byte[] addBytes(byte[] data1, byte[] data2) {
+        byte[] data3 = new byte[data1.length + data2.length];
+        System.arraycopy(data1, 0, data3, 0, data1.length);
+        System.arraycopy(data2, 0, data3, data1.length, data2.length);
+        return data3;
+
     }
 
     // 通过observer pattern将收到的数据发送给observer
@@ -234,7 +254,7 @@ public class SerialReader extends Observable implements Runnable,SerialPortEvent
     public void openSerialPort(String message)
     {
         HashMap<String, Comparable> params = new HashMap<String, Comparable>();
-        String port="COM1";
+        String port="COM3";
         String rate = "9600";
         String dataBit = ""+SerialPort.DATABITS_8;
         String stopBit = ""+SerialPort.STOPBITS_1;

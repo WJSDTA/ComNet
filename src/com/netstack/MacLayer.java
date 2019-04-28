@@ -67,14 +67,14 @@ public class MacLayer implements Runnable{
                         try {
                             s =   queue.take();
                             Ms =s.getFrom();
-                            message.setFrom("MacLayer");
+                            message.setFrom("MacLayer");//先设置从哪来
 
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        if (Ms=="PhyLayer"){
+                        if (Ms=="PhyLayer"){    //根据从哪来判断到哪去
                             message.setTo("NetLayer");
-                            message.setInfo(s.getInfo());
+                            message.setInfo(s.getInfo());   //数据
                         }
                         if (s.getFrom()=="NetLayer"){
                             message.setTo("PhyLayer");
