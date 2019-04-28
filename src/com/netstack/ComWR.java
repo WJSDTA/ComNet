@@ -9,6 +9,8 @@ package com.netstack;
  * \* Description:
  * \
  */
+import com.config.GetConfig;
+import com.config.SerialConfig;
 import gnu.io.SerialPort;
 
 import java.util.HashMap;
@@ -53,7 +55,8 @@ public class ComWR implements Observer{
     public void openSerialPort(String message)
     {
         HashMap<String, Comparable> params = new HashMap<String, Comparable>();
-        String port="COM3";
+        SerialConfig serialConfig = new GetConfig().getSerialConfig();
+        /*String port="COM3";
         String rate = "115200";
         String dataBit = ""+SerialPort.DATABITS_8;
         String stopBit = ""+SerialPort.STOPBITS_1;
@@ -65,7 +68,23 @@ public class ComWR implements Observer{
         params.put( SerialReader.PARAMS_STOPBITS, stopBit ); // 停止位
         params.put( SerialReader.PARAMS_PARITY, parityInt ); // 无奇偶校验
         params.put( SerialReader.PARAMS_TIMEOUT,100 ); // 设备超时时间 1秒
-        params.put( SerialReader.PARAMS_DELAY, 500 ); // 端口数据准备时间 1秒
+        params.put( SerialReader.PARAMS_DELAY, 500 ); // 端口数据准备时间 1秒*/
+
+        String port=serialConfig.getPort();
+        String rate = serialConfig.getRate();
+        String dataBit = serialConfig.getDataBit();
+        String stopBit = serialConfig.getStopBit();
+        String parity = serialConfig.getParity();
+        int parityInt = serialConfig.getParityInt();
+        params.put( SerialReader.PARAMS_PORT, port ); // 端口名称
+        params.put( SerialReader.PARAMS_RATE, rate ); // 波特率
+        params.put( SerialReader.PARAMS_DATABITS,dataBit  ); // 数据位
+        params.put( SerialReader.PARAMS_STOPBITS, stopBit ); // 停止位
+        params.put( SerialReader.PARAMS_PARITY, parityInt ); // 无奇偶校验
+        params.put( SerialReader.PARAMS_TIMEOUT,serialConfig.getTimeout() ); // 设备超时时间 1秒
+        params.put( SerialReader.PARAMS_DELAY, serialConfig.getDelay() ); // 端口数据准备时间 1秒
+
+
         try {
             sr.open(params);
             sr.addObserver(this);//添加观察者

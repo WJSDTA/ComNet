@@ -19,7 +19,7 @@ public class GetConfig {
     String json = JsonWR.getDatafromFile("config");
     //Config config = JsonUtils.stringTOJSONObject(json,Config.class);
     Config config=JsonUtils.jsonStringToObject(json, Config.class);
-    public String getFilePath(){
+    public  String getFilePath(){
         return config.getFilePath();
     }
     public SerialConfig getSerialConfig(){
