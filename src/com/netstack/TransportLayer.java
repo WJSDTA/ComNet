@@ -75,7 +75,7 @@ public class TransportLayer implements Runnable{
                                 e.printStackTrace();
                             }
                             message.setTo("NetLayer");
-                            message.setInfo(s.getInfo()+" from:TransportLayer to NetLayer ");
+                            message.setInfo(s.getInfo());
                         }
                         if (s.getFrom()=="NetLayer"){
                             message.setTo("ApplicationLayer");

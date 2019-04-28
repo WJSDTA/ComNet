@@ -78,7 +78,7 @@ public class MacLayer implements Runnable{
                         }
                         if (s.getFrom()=="NetLayer"){
                             message.setTo("PhyLayer");
-                            message.setInfo(s.getInfo()+" from:NetLayer to PhyLayer ");
+                            message.setInfo(s.getInfo());
                         }
                         try {
                             queue.put(message);

@@ -83,7 +83,7 @@ public class NetLayer implements Runnable{
                         }
                         if (s.getFrom()=="TransportLayer"){
                             message.setTo("MacLayer");
-                            message.setInfo(s.getInfo()+" from:NetLayer to MacLayer ");
+                            message.setInfo(s.getInfo());
                         }
                         try {
                             queue.put(message);

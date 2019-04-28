@@ -80,8 +80,8 @@ public class PhyLayer implements Runnable {
                     if(from==this.getName()){
                         try {
                             s =   queue.take();
-                            System.out.println("I am PhyLayer ,my info is:"+s.getInfo());
-                            comWR.send("I am PhyLayer ,my info is:"+s.getInfo());
+                          //  System.out.println("I am PhyLayer ,my info is:"+s.getInfo());
+                            comWR.send(s.getInfo());
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }

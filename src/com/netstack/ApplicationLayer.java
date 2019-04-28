@@ -120,7 +120,7 @@ public class ApplicationLayer implements Runnable{
                      message.setFrom("ApplicationLayer");
                      message.setTo("TransportLayer");
                      try {
-                         message.setInfo("I am ApplicationLayer ,my info is:" + buffer.take());
+                         message.setInfo(buffer.take());
                          queue.put(message);
                      } catch (InterruptedException e) {
                          e.printStackTrace();
