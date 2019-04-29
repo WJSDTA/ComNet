@@ -131,8 +131,9 @@ public class test {
                 String str = new String(bytes,0,n,"GBK");
                 System.out.println(str);
                 //写入相关文件
-                String.format("%05d", n);
+                String.format("%05d", -1);
                 System.out.println( String.format("%05d", n));
+                System.out.println( Integer.valueOf(String.format("%05d", -1).substring(0,5)));
                 // cache.put(str);
                 //out.write(str.getBytes(), 0, n);
             }

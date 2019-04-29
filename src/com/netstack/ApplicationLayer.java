@@ -1,7 +1,15 @@
 package com.netstack;
 
+import com.FileIO.FileRecv;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
+
+import static java.lang.System.out;
 
 /**
  * \* Created with IntelliJ IDEA.
@@ -22,6 +30,7 @@ public class ApplicationLayer implements Runnable{
     public Message s;
     public String from;
     public Message ss = new Message();
+    String sss="" ;
 
     Message s1;
     public ApplicationLayer() {
@@ -86,8 +95,8 @@ public class ApplicationLayer implements Runnable{
                         if(from==this.getName()){
                             try {
                                 s =   queue.take();
-                                System.out.println("I am ApplicationLayer ,my info is:"+s.getInfo());//从这打印底层传来的数据
-
+                                out.println("I am ApplicationLayer ,my info is:"+s.getInfo());//从这打印底层传来的数据
+                                FileRecv.Recv("b.txt",s.getInfo());
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
