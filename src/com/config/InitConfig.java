@@ -28,6 +28,7 @@ public class InitConfig {
         Config config = new Config();
         config.setSerialConfig(serialConfig);
         config.setFilePath("this");
+        config.setAddress(1);
         String json= JsonUtils.objectToJson(config);
         JsonWR.saveDataToFile("config",json);
         System.out.println(json);

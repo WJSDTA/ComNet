@@ -12,14 +12,6 @@ import gnu.io.SerialPort;
  * \
  */
 public class SerialConfig {
-   /* private String port="COM3";
-    private String rate = "115200";
-    private String dataBit = ""+ SerialPort.DATABITS_8;
-    private String stopBit = ""+SerialPort.STOPBITS_1;
-    private String parity = ""+SerialPort.PARITY_NONE;
-    private int parityInt = SerialPort.PARITY_NONE;
-    private int timeout;
-    private int delay;*/
     private String port;
     private String rate ;
     private String dataBit;

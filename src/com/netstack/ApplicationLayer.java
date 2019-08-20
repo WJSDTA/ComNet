@@ -1,6 +1,8 @@
 package com.netstack;
 
 import com.FileIO.FileRecv;
+import com.config.Config;
+import com.config.GetConfig;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -25,8 +27,8 @@ public class ApplicationLayer implements Runnable{
     private Message message =new Message();
     private LinkedBlockingDeque<Message> queue;
     private LinkedBlockingDeque<Message> queue1=new LinkedBlockingDeque<>();
-    private LinkedBlockingDeque<String> cache=new LinkedBlockingDeque<>();
-    private LinkedBlockingDeque<String> buffer = new LinkedBlockingDeque<String>(1024);
+    private static LinkedBlockingDeque<String> cache=new LinkedBlockingDeque<>();
+    private static LinkedBlockingDeque<String> buffer = new LinkedBlockingDeque<String>(1024);
     public Message s;
     public String from;
     public Message ss = new Message();
@@ -39,7 +41,7 @@ public class ApplicationLayer implements Runnable{
     public ApplicationLayer(LinkedBlockingDeque<Message> queue) {
         this.queue = queue;
     }
-    public LinkedBlockingDeque<String> getBuffer() {
+    public static LinkedBlockingDeque<String> getBuffer() {
         return buffer;
     }
 
@@ -71,11 +73,11 @@ public class ApplicationLayer implements Runnable{
         this.queue = queue;
     }
 
-    public LinkedBlockingDeque<String> getCache() {
+    public static LinkedBlockingDeque<String> getCache() {
         return cache;
     }
 
-    public void setCache(LinkedBlockingDeque<String> cache) {
+    public void  setCache(LinkedBlockingDeque<String> cache) {
         this.cache = cache;
     }
 
@@ -96,7 +98,9 @@ public class ApplicationLayer implements Runnable{
                             try {
                                 s =   queue.take();
                                 out.println("I am ApplicationLayer ,my info is:"+s.getInfo());//从这打印底层传来的数据
-                                FileRecv.Recv("b.txt",s.getInfo());
+                                //out.println();
+                                GetConfig getConfig = new GetConfig();
+                                //FileRecv.Recv(getConfig.getFilePath(),s.getInfo());
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }

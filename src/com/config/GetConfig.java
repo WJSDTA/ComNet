@@ -19,11 +19,15 @@ public class GetConfig {
     String json = JsonWR.getDatafromFile("config");
     //Config config = JsonUtils.stringTOJSONObject(json,Config.class);
     Config config=JsonUtils.jsonStringToObject(json, Config.class);
+    int address =config.getAddress();
     public  String getFilePath(){
         return config.getFilePath();
     }
     public SerialConfig getSerialConfig(){
         return config.getSerialConfig();
+    }
+    public int getAddress(){
+        return address ;
     }
 
 

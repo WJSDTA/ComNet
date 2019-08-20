@@ -19,7 +19,7 @@ import java.util.concurrent.LinkedBlockingDeque;
  * \
  */
 public class NetWorkDemo {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         LinkedBlockingDeque<Message> queue = new LinkedBlockingDeque<Message>(1024);
         LinkedBlockingDeque<String> cache = new LinkedBlockingDeque<String>(1024);
         PhyLayer phyLayer = new PhyLayer(queue);
@@ -34,15 +34,22 @@ public class NetWorkDemo {
         transportLayer.setName("TransportLayer");
         applicationLayer.setName("ApplicationLayer");
         applicationLayer.setBuffer(cache);
-        fileSend.setCache(cache);
+        //fileSend.setCache(cache);
         new Thread(phyLayer).start();
         new Thread(macLayer).start();
         new Thread(netLayer).start();
         new Thread(transportLayer).start();
         new Thread(applicationLayer).start();
       //  new Thread(fileSend).start();
+        for (int i =0;i<5;i++)
+        {
+            //cache.put(String.valueOf(i));
+            SocketR socketR = new SocketR();
+            socketR.send(2,String.valueOf(i));
+        }
 
-
+        SocketR s = new SocketR();
+        s.send(9,"aaaaaa");
 
 
 

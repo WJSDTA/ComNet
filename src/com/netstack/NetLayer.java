@@ -1,5 +1,8 @@
 package com.netstack;
 
+import com.config.GetConfig;
+import com.router.ManageRouterTable;
+
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 
@@ -21,6 +24,8 @@ public class NetLayer implements Runnable{
     private LinkedBlockingDeque<Message> cache;
     public NetLayer() {
     }
+    public ManageRouterTable manageRouterTable = new ManageRouterTable();
+    GetConfig config = new GetConfig();
     public NetLayer(BlockingQueue<Message> queue) {
         this.queue = queue;
     }
@@ -56,6 +61,23 @@ public class NetLayer implements Runnable{
     public void setCache(LinkedBlockingDeque<Message> cache) {
         this.cache = cache;
     }
+    public String dateEXC(String message){
+        /*System.out.println(String.valueOf(Integer.valueOf(message.substring(0,5))));
+        System.out.println(String.valueOf(config.getAddress()));*/
+       String next_hop =  manageRouterTable.searchHop(String.valueOf(Integer.valueOf(message.substring(0,5))) ,String.valueOf(config.getAddress()));
+       next_hop = String.format("%05d",Integer.valueOf(next_hop));
+       String mx = next_hop +message.substring(0,5)+String.format("%05d",config.getAddress())+message.substring(5,message.length());
+
+        return mx;
+    }
+    public int NetDataEXC(String message){
+        if(message.substring(0,5).equals(String.format("%05d",config.getAddress()))){
+           return 1;
+        }
+        else {
+            return 0;
+        }
+    }
 
     @Override
     public void run() {
@@ -78,12 +100,21 @@ public class NetLayer implements Runnable{
                             e.printStackTrace();
                         }
                         if (s.getFrom()=="MacLayer"){
-                            message.setTo("TransportLayer");
-                            message.setInfo(s.getInfo());
+                            if(NetDataEXC(s.getInfo())==1){
+                                message.setTo("TransportLayer");
+                                message.setInfo(s.getInfo().substring(10,s.getInfo().length()));
+                            }
+                            else {
+                                message.setTo("MacLayer");
+                                message.setInfo(dateEXC(s.getInfo().substring(0,5)+s.getInfo().substring(10,s.getInfo().length())));
+
+                            }
+
                         }
                         if (s.getFrom()=="TransportLayer"){
                             message.setTo("MacLayer");
-                            message.setInfo(s.getInfo());
+                            message.setInfo(dateEXC(s.getInfo()));
+                            //System.out.println(dateEXC(s.getInfo()));
                         }
                         try {
                             queue.put(message);

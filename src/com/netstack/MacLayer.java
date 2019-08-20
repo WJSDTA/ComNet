@@ -1,5 +1,7 @@
 package com.netstack;
 
+import com.config.GetConfig;
+
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 
@@ -20,6 +22,7 @@ public class MacLayer implements Runnable{
     public Message s1;
     public String from;
     String Ms;
+    GetConfig config = new GetConfig();
     public MacLayer() {
     }
 
@@ -50,12 +53,26 @@ public class MacLayer implements Runnable{
     public void setQueue(LinkedBlockingDeque<Message> queue) {
         this.queue = queue;
     }
+    public String MacDataEXC(String message){
+        String mx =  message.substring(0,5)+String.format("%05d",config.getAddress())+message.substring(5,message.length());
 
+        return mx;
+    }
+    public boolean MacDe(String message){
+        if(message.substring(0,5).equals(String.format("%05d",config.getAddress()))){
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     @Override
     public void run() {
         int x =0;
         while (true){
             synchronized (queue){
+                boolean flag =true;
                 if (!queue.isEmpty()&&queue.getFirst()!=null){
                     message = new Message();
                     try {
@@ -74,14 +91,26 @@ public class MacLayer implements Runnable{
                         }
                         if (Ms=="PhyLayer"){    //根据从哪来判断到哪去
                             message.setTo("NetLayer");
-                            message.setInfo(s.getInfo());   //数据
+                               //数据
+                            if(MacDe(s.getInfo())){
+                                System.out.println("hello");
+                                message.setInfo(s.getInfo().substring(10,s.getInfo().length()));
+                            }
+                            else {
+                                flag =false;
+                            }
                         }
                         if (s.getFrom()=="NetLayer"){
                             message.setTo("PhyLayer");
-                            message.setInfo(s.getInfo());
+                            message.setInfo(MacDataEXC(s.getInfo()));
+                            System.out.println(MacDataEXC(s.getInfo()));
                         }
                         try {
-                            queue.put(message);
+                            if(!flag){}
+                            else {
+                                queue.put(message);
+                            }
+
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
