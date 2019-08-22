@@ -37,6 +37,7 @@ public class NetStack {
         String json= JsonUtils.objectToJson(config);
         JsonWR.saveDataToFile("config",json);
     }
+
     public void start(){
     LinkedBlockingDeque<Message> queue = new LinkedBlockingDeque<Message>(1024);
     LinkedBlockingDeque<String> cache = new LinkedBlockingDeque<String>(1024);
