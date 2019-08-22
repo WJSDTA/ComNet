@@ -64,15 +64,28 @@ public class NetLayer implements Runnable{
     public String dateEXC(String message){
         /*System.out.println(String.valueOf(Integer.valueOf(message.substring(0,5))));
         System.out.println(String.valueOf(config.getAddress()));*/
-       String next_hop =  manageRouterTable.searchHop(String.valueOf(Integer.valueOf(message.substring(0,5))) ,String.valueOf(config.getAddress()));
-       next_hop = String.format("%05d",Integer.valueOf(next_hop));
-       String mx = next_hop +message.substring(0,5)+String.format("%05d",config.getAddress())+message.substring(5,message.length());
+        //System.out.println(message);
+        String next_hop =  manageRouterTable.searchHop(String.valueOf(Integer.valueOf(message.substring(0,5))) ,String.valueOf(Integer.valueOf(message.substring(6,10))));//此处有逻辑问题
+        System.out.println(next_hop);
+        next_hop = String.format("%05d",Integer.valueOf(next_hop));
+        // String mx = next_hop +message.substring(0,5)+String.format("%05d",config.getAddress())+message.substring(5,message.length());
+        String mx = next_hop +message;
 
         return mx;
     }
+    public String dateFromEXC(String message){
+        // System.out.println(String.valueOf(Integer.valueOf(message.substring(0,5))));
+        // System.out.println(String.valueOf(config.getAddress()));*/
+        String next_hop =  manageRouterTable.searchHop(String.valueOf(Integer.valueOf(message.substring(0,5))) ,String.valueOf(config.getAddress()));
+        next_hop = String.format("%05d",Integer.valueOf(next_hop));
+        String mx = next_hop +message.substring(0,5)+String.format("%05d",config.getAddress())+message.substring(5,message.length());
+
+        return mx;
+
+    }
     public int NetDataEXC(String message){
         if(message.substring(0,5).equals(String.format("%05d",config.getAddress()))){
-           return 1;
+            return 1;
         }
         else {
             return 0;
@@ -83,7 +96,7 @@ public class NetLayer implements Runnable{
     public void run() {
         while (true){
             synchronized (queue){
-                 if (!queue.isEmpty()&&queue.peek()!=null){
+                if (!queue.isEmpty()&&queue.peek()!=null){
                     message = new Message();
                     try {
                         from =queue.peek().getTo();
@@ -106,14 +119,15 @@ public class NetLayer implements Runnable{
                             }
                             else {
                                 message.setTo("MacLayer");
-                                message.setInfo(dateEXC(s.getInfo().substring(0,5)+s.getInfo().substring(10,s.getInfo().length())));
+                                //message.setInfo(dateEXC(s.getInfo().substring(0,5)+s.getInfo().substring(10,s.getInfo().length())));
+                                message.setInfo(dateEXC(s.getInfo()));
 
                             }
 
                         }
                         if (s.getFrom()=="TransportLayer"){
                             message.setTo("MacLayer");
-                            message.setInfo(dateEXC(s.getInfo()));
+                            message.setInfo(dateFromEXC(s.getInfo()));
                             //System.out.println(dateEXC(s.getInfo()));
                         }
                         try {
