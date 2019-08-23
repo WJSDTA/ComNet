@@ -38,7 +38,7 @@ public class ManageRouterTable {
         }
         return tmp;
     }
-    void addHop(String destination_address, String source_address,String next_hop){
+    public void  addHop(String destination_address, String source_address,String next_hop){
         set.add(new RouteList(destination_address,source_address,next_hop));
         routeTable.setSet(set);
         String json= JsonUtils.objectToJson(routeTable);

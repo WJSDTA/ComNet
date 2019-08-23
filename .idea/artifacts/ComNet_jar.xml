@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ComNet:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ComNet_jar</output-path>
+    <root id="archive" name="ComNet.jar">
+      <element id="module-output" name="ComNet" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/RXTXcomm.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/fastjson-1.2.57.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

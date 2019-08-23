@@ -1,9 +1,12 @@
+package com.netstack;
+
 import com.FileIO.FileSend;
 import com.config.Config;
 import com.config.SerialConfig;
 import com.json.JsonUtils;
 import com.json.JsonWR;
 import com.netstack.*;
+import com.router.ManageRouterTable;
 import gnu.io.SerialPort;
 
 import java.util.concurrent.LinkedBlockingDeque;
@@ -60,4 +63,14 @@ public class NetStack {
     new Thread(transportLayer).start();
     new Thread(applicationLayer).start();
 }
+    public void add_hop(String destination,String source,String next_address){
+
+        ManageRouterTable manageRouterTable = new ManageRouterTable();
+
+        manageRouterTable.addHop(destination,source,next_address);
+
+    }
+    public static void main(String[] args) {
+
+    }
 }
