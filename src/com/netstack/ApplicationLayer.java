@@ -29,6 +29,10 @@ public class ApplicationLayer implements Runnable{
     private LinkedBlockingDeque<Message> queue1=new LinkedBlockingDeque<>();
     private static LinkedBlockingDeque<String> cache=new LinkedBlockingDeque<>();
     private static LinkedBlockingDeque<String> buffer = new LinkedBlockingDeque<String>(1024);
+
+
+
+    private static LinkedBlockingDeque<String> scache = new LinkedBlockingDeque<>();
     public Message s;
     public String from;
     public Message ss = new Message();
@@ -80,7 +84,13 @@ public class ApplicationLayer implements Runnable{
     public void  setCache(LinkedBlockingDeque<String> cache) {
         this.cache = cache;
     }
+    public static LinkedBlockingDeque<String> getScache() {
+        return scache;
+    }
 
+    public static void setScache(LinkedBlockingDeque<String> scache) {
+        ApplicationLayer.scache = scache;
+    }
     @Override
     public void run() {
         while (true){
@@ -97,6 +107,7 @@ public class ApplicationLayer implements Runnable{
                         if(from==this.getName()){
                             try {
                                 s =   queue.take();
+                                scache.put(s.getInfo());
                                 out.println("I am ApplicationLayer ,my info is:"+s.getInfo());//从这打印底层传来的数据
                                 //out.println();
                                 GetConfig getConfig = new GetConfig();
