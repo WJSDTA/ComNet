@@ -22,8 +22,9 @@ public class test {
        // manageRouterTable.showHop();
        /* GetConfig config = new GetConfig();
         System.out.println(config.getAddress());*/
-       for (int i =0;i<10;i++){
+      /* for (int i =0;i<10;i++){
            manageRouterTable.addHop(String.valueOf(i),String.valueOf('1'),String.valueOf('3'));
-       }
+       }*/
+        manageRouterTable.addHop("3","0","1");
     }
 }

@@ -75,8 +75,10 @@ public class NetLayer implements Runnable{
     }
     public String dateFromEXC(String message){
         // System.out.println(String.valueOf(Integer.valueOf(message.substring(0,5))));
-        // System.out.println(String.valueOf(config.getAddress()));*/
+         //System.out.println(String.valueOf(config.getAddress()));
         String next_hop =  manageRouterTable.searchHop(String.valueOf(Integer.valueOf(message.substring(0,5))) ,String.valueOf(config.getAddress()));
+
+       // System.out.println(next_hop);
         next_hop = String.format("%05d",Integer.valueOf(next_hop));
         String mx = next_hop +message.substring(0,5)+String.format("%05d",config.getAddress())+message.substring(5,message.length());
 

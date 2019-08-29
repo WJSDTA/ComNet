@@ -41,15 +41,15 @@ public class NetWorkDemo {
         new Thread(transportLayer).start();
         new Thread(applicationLayer).start();
       //  new Thread(fileSend).start();
-        for (int i =0;i<5;i++)
+        /*for (int i =0;i<5;i++)
         {
             //cache.put(String.valueOf(i));
             SocketR socketR = new SocketR();
             socketR.send(2,String.valueOf(i));
-        }
+        }*/
 
         SocketR s = new SocketR();
-        s.send(9,"aaaaaa");
+        s.send(3,"aaaaaa");
 
 
 
