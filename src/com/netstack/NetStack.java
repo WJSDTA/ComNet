@@ -23,20 +23,20 @@ import java.util.concurrent.LinkedBlockingDeque;
 public class NetStack {
     public NetStack() {
     }
-    public void init(){
+    public void init(String port,String rate,int timeout,int delay,int address ){
         SerialConfig serialConfig = new SerialConfig();
-        serialConfig.setPort("COM3");
-        serialConfig.setRate("115200");
+        serialConfig.setPort(port);
+        serialConfig.setRate(rate);
         serialConfig.setDataBit(""+ SerialPort.DATABITS_8);
         serialConfig.setStopBit(""+SerialPort.STOPBITS_1);
         serialConfig.setParity(""+SerialPort.PARITY_NONE);
         serialConfig.setParityInt(SerialPort.PARITY_NONE);
-        serialConfig.setTimeout(100);
-        serialConfig.setDelay(500);
+        serialConfig.setTimeout(timeout);
+        serialConfig.setDelay(delay);
         Config config = new Config();
         config.setSerialConfig(serialConfig);
         config.setFilePath("this");
-        config.setAddress(1);
+        config.setAddress(address);
         String json= JsonUtils.objectToJson(config);
         JsonWR.saveDataToFile("config",json);
     }
