@@ -159,6 +159,7 @@ public class MacLayerC implements Runnable{
                 }
 
             }
+
                 //此代码待检验正确与否
                 synchronized (intoCache){//不是queue，应为交互队列
                     if(!dataCache.isEmpty()&&dataCache.getFirst()!=null&&dataCache.getFirst().getTo()==this.getName()){//把数据传到 数据处理的进程
