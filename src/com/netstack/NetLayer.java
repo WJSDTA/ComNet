@@ -130,6 +130,7 @@ public class NetLayer implements Runnable{
                         if (s.getFrom()=="TransportLayer"){
                             message.setTo("MacLayer");
                             message.setInfo(dateFromEXC(s.getInfo()));
+                           // System.out.println(message.getInfo());
                             //System.out.println(dateEXC(s.getInfo()));
                         }
                         try {

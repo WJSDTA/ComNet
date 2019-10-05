@@ -12,6 +12,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 
 import static java.lang.System.out;
+import static java.lang.System.setOut;
 
 /**
  * \* Created with IntelliJ IDEA.
@@ -145,6 +146,7 @@ public class ApplicationLayer implements Runnable{
                      message.setTo("TransportLayer");
                      try {
                          message.setInfo(buffer.take());
+                        // out.println(message.getInfo());
                          queue.put(message);
                      } catch (InterruptedException e) {
                          e.printStackTrace();

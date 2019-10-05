@@ -76,10 +76,12 @@ public class TransportLayer implements Runnable{
                             }
                             message.setTo("NetLayer");
                             message.setInfo(s.getInfo());
+                          //  System.out.println(message.getInfo());
                         }
                         if (s.getFrom()=="NetLayer"){
                             message.setTo("ApplicationLayer");
                             message.setInfo(s.getInfo());
+
                         }
                         try {
                             queue.put(message);
