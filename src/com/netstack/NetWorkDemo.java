@@ -24,39 +24,22 @@ public class NetWorkDemo {
         LinkedBlockingDeque<String> cache = new LinkedBlockingDeque<String>(1024);
         PhyLayer phyLayer = new PhyLayer(queue);
         MacLayer macLayer = new MacLayer(queue);
-        //MacLayerC macLayerc = new MacLayerC(queue);
-        //MacLayerCal macLayercal = new MacLayerCal();
-       // macLayercal.setIntoCache(macLayer.getIntoCache());
-        //macLayercal.setOutCache(macLayer.getOutCache());
-
-
         NetLayer netLayer = new NetLayer(queue);
         TransportLayer transportLayer = new TransportLayer(queue);
         ApplicationLayer applicationLayer = new ApplicationLayer(queue);
         FileSend  fileSend = new FileSend();
         phyLayer.setName("PhyLayer");
         macLayer.setName("MacLayer");
-        //macLayerc.setName("MacLayer");
         netLayer.setName("NetLayer");
         transportLayer.setName("TransportLayer");
         applicationLayer.setName("ApplicationLayer");
         applicationLayer.setBuffer(cache);
-        //fileSend.setCache(cache);
         new Thread(phyLayer).start();
         new Thread(macLayer).start();
-        //new Thread(macLayerc).start();
-        //new Thread(macLayercal).start();
-
         new Thread(netLayer).start();
         new Thread(transportLayer).start();
         new Thread(applicationLayer).start();
-      //  new Thread(fileSend).start();
-        /*for (int i =0;i<5;i++)
-        {
-            //cache.put(String.valueOf(i));
-            SocketR socketR = new SocketR();
-            socketR.send(2,String.valueOf(i));
-        }*/
+
 
         SocketR s = new SocketR();
         s.send(3,"aaaaaa");
