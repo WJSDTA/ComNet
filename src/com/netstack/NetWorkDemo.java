@@ -23,11 +23,11 @@ public class NetWorkDemo {
         LinkedBlockingDeque<Message> queue = new LinkedBlockingDeque<Message>(1024);
         LinkedBlockingDeque<String> cache = new LinkedBlockingDeque<String>(1024);
         PhyLayer phyLayer = new PhyLayer(queue);
-        //MacLayer macLayer = new MacLayer(queue);
-        MacLayerC macLayerc = new MacLayerC(queue);
-        MacLayerCal macLayercal = new MacLayerCal();
-        macLayercal.setIntoCache(macLayerc.getIntoCache());
-        macLayercal.setOutCache(macLayerc.getOutCache());
+        MacLayer macLayer = new MacLayer(queue);
+        //MacLayerC macLayerc = new MacLayerC(queue);
+        //MacLayerCal macLayercal = new MacLayerCal();
+       // macLayercal.setIntoCache(macLayer.getIntoCache());
+        //macLayercal.setOutCache(macLayer.getOutCache());
 
 
         NetLayer netLayer = new NetLayer(queue);
@@ -35,17 +35,17 @@ public class NetWorkDemo {
         ApplicationLayer applicationLayer = new ApplicationLayer(queue);
         FileSend  fileSend = new FileSend();
         phyLayer.setName("PhyLayer");
-       // macLayer.setName("MacLayer");
-        macLayerc.setName("MacLayer");
+        macLayer.setName("MacLayer");
+        //macLayerc.setName("MacLayer");
         netLayer.setName("NetLayer");
         transportLayer.setName("TransportLayer");
         applicationLayer.setName("ApplicationLayer");
         applicationLayer.setBuffer(cache);
         //fileSend.setCache(cache);
         new Thread(phyLayer).start();
-        //new Thread(macLayer).start();
-        new Thread(macLayerc).start();
-        new Thread(macLayercal).start();
+        new Thread(macLayer).start();
+        //new Thread(macLayerc).start();
+        //new Thread(macLayercal).start();
 
         new Thread(netLayer).start();
         new Thread(transportLayer).start();
